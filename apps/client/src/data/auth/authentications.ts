@@ -6,14 +6,14 @@ import { cookies } from 'next/headers';
 export async function setAuthentication(accessToken) {
   const cookieStore = cookies();
 
-  cookieStore.set({
+  (await cookieStore).set({
     name: 'accessToken',
     value: accessToken,
     secure: process.env.NODE_ENV === 'production',
     expires: authExpire,
   });
 
-  cookieStore.set({
+  (await cookieStore).set({
     name: 'accessToken',
     value: accessToken,
     secure: process.env.NODE_ENV === 'production',
@@ -23,10 +23,10 @@ export async function setAuthentication(accessToken) {
 
 export async function getAuthentication() {
   const cookieStore = cookies();
-  return cookieStore.get('accessToken')?.value;
+  return (await cookieStore).get('accessToken')?.value;
 }
 
 export async function deleteAuthentication() {
   const cookieStore = cookies();
-  cookieStore.delete('accessToken');
+  (await cookieStore).delete('accessToken');
 }

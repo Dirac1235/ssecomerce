@@ -1,15 +1,15 @@
 "use server";
 import { cookies } from "next/headers";
 
-const cookieStore = cookies();
 
 export async function getWishList() {
+  const cookieStore = await cookies();
   const wishListCookie = await cookieStore.get("wishList");
     let wishList = [];
 
     if (wishListCookie && wishListCookie.value) {
       wishList = JSON.parse(wishListCookie.value);
-      cookieStore.delete("wishList");
+      (await cookieStore).delete("wishList");
     }
   return wishList;
 }
@@ -24,10 +24,10 @@ export async function addToWishList(data) {
       cookieStore.delete("wishList");
     }
 
-    const itemIndex = wishList.findIndex((item) => item.id === data.id);
+    const itemIndex = wishList.findIndex((item: any) => item.id === data.id);
 
     if (itemIndex === -1) {
-      wishList.push(data);
+      wishList.push(data as never);
     } else {
       wishList.splice(itemIndex, 1);
     }
@@ -42,14 +42,14 @@ export async function addToWishList(data) {
 }
 
 export async function removeFromWishList(id) {
-  const wishListCookie =  cookieStore.get("wishList");
+  const wishListCookie =  await cookieStore.get("wishList");
   let wishList = [];
   if (wishListCookie && wishListCookie.value) {
     wishList = JSON.parse(wishListCookie.value);
     cookieStore.delete("wishList");
   }
 
-  wishList?.filter((data) => data.id != id);
+  wishList?.filter((data: any) => data.id != id);
   cookieStore.set({
     name: "wishList",
     value: JSON.stringify(wishList),

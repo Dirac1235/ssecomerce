@@ -10,7 +10,7 @@ export async function login(formData) {
     const data = res.data;
     console.log(data);
     if (data.user && data.token) {
-      cookieStore.set({
+      (await cookieStore).set({
         name: "accessToken",
         value: data.token,
         secure: process.env.NODE_ENV === "production",
@@ -19,7 +19,7 @@ export async function login(formData) {
     return { user: data.user };
   } catch (error) {
     console.log({ error });
-    const data = error.response?.data;
+    const data = (error as any).response?.data;
     return { error: data || "Unknown error" };
   }
 }
@@ -31,7 +31,7 @@ export async function register(formData) {
     console.log({ res });
     const data = res.data;
     if (data.user && data.jwt) {
-      cookieStore.set({
+      (await cookieStore).set({
         name: "accessToken",
         value: data.jwt,
         secure: process.env.NODE_ENV === "production",
@@ -40,16 +40,16 @@ export async function register(formData) {
     return { user: data.user };
   } catch (error) {
     console.log({ error });
-    const data = error.response?.data;
+    const data = (error as any).response?.data;
     return { error: data || "Unknown error" };
   }
 }
 
 export async function deleteAuthentication() {
   const cookieStore = cookies();
-  cookieStore.delete("accessToken");
-  cookieStore.delete("wishList");
-  cookieStore.delete("cartList");
+  (await cookieStore).delete("accessToken");
+  (await cookieStore).delete("wishList");
+  (await cookieStore).delete("cartList");
 
 
 }

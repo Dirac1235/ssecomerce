@@ -6,14 +6,18 @@ import Image from "next/image";
 
 async function CheckOut() {
   const user = await getUser();
-  
 
   return (
-    <div className="grid gap-5 sm:px-10 lg:grid-cols-2 lg:px-20 h-full xl:px-22">
-      <div className="px-4 pt-8">
-        <CheckOutList />
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+      <h1 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8">Checkout</h1>
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div>
+          <CheckOutList />
+        </div>
+        <div>
+          <CheckOutForm user={user} />
+        </div>
       </div>
-      <CheckOutForm user={user}/>
     </div>
   );
 }

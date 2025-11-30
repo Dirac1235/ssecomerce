@@ -20,18 +20,18 @@ const ProductsPage = ({ products }) => {
 
   });
   return (
-    <div className="   ">
-      <h1 className="text-3xl text-pink-950 font-semibold p-10 ml-16 ">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl text-pink-950 font-semibold mb-6 sm:mb-8 text-center lg:text-left">
         Latest Products
       </h1>
 
-      <ul className="grid grid-cols-4 ml-24 align-middle gap-7 w-5/6  mb-3">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
         {products.map((product) => (
           <li
             key={product.id}
-            className=" flex flex-col w-fit ml-2 shadow-sm justify-center rounded-md "
+            className="flex justify-center"
           >
-            <ProductCard product={product} width={"w-[19rem]"} />
+            <ProductCard product={product} width={"w-full max-w-sm"} />
           </li>
         ))}
       </ul>

@@ -49,64 +49,65 @@ function ProductCard({ product, width }) {
   // },[clicked])
   return (
     <div
-      className={`group ${width} flex  flex-col  overflow-hidden hover:bg-gray-100  bg-[#fffbf5] shadow-md `}
+      className={`group ${width} flex flex-col overflow-hidden bg-[#fffbf5] hover:bg-gray-50 shadow-md rounded-lg transition-all duration-300 hover:shadow-lg`}
     >
       <a
-        className="relative flex h-40 overflow-hidden  hover:bg-opacity-100 transition inset-0"
+        className="relative flex h-48 sm:h-56 overflow-hidden bg-gray-100"
         href={`/shop/${product.id}`}
       >
         <img
-          className="peer absolute top-0 right-0 h-full w-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           src={product.image}
-          alt="product image"
+          alt={product.name}
         />
       </a>
-      <div className="mt-4 ml-2 mb-2 ">
-        <div className="flex items-center justify-between">
-          <a href="#">
-            <h5 className="text-xl tracking-tight text-slate-900">
+      <div className="flex flex-col flex-grow p-4 space-y-3">
+        <div className="flex items-start justify-between gap-2">
+          <a href={`/shop/${product.id}`} className="flex-1 min-w-0">
+            <h5 className="text-base sm:text-lg font-semibold tracking-tight text-slate-900 line-clamp-2 hover:text-pink-950 transition-colors">
               {product.name}
             </h5>
           </a>
           <Button
-            className="bg-inherit hover:bg-inherit  rounded-r-md px-5 "
+            className="bg-transparent hover:bg-gray-100 rounded-full p-2 h-auto w-auto flex-shrink-0"
             onClick={() => setAddToWish()}
+            aria-label="Add to wishlist"
           >
             <FaRegHeart
-              color="black"
-              size={20}
-              fill={color ? "red" : undefined}
+              color={color ? "red" : "black"}
+              size={18}
+              fill={color ? "red" : "none"}
             />
           </Button>
         </div>
-        <div className=" mb-1 flex items-center justify-between">
-          <p>
-            <span className="text-xl font-bold text-slate-900">
-              ${product.price}
-            </span>
-            <span className="text-sm text-slate-900 ml-2 line-through">
-              ${product.price}
-            </span>
-          </p>
+        <div className="flex items-center gap-2">
+          <span className="text-lg sm:text-xl font-bold text-slate-900">
+            ${product.price}
+          </span>
+          <span className="text-sm text-gray-500 line-through">
+            ${(product.price * 1.2).toFixed(2)}
+          </span>
         </div>
-        <StarRating keys={product.id} />
-      </div>
-      <div className="flex  w-full justify-center items-center">
-        {!cartData.find((data) => data.id === product.id) ? (
-          <Button
-            onClick={() => setCart(product)}
-            className="flex items-center justify-center   flex-grow rounded-md  bg-pink-950 px-1 py-2.5 text-center text-sm font-medium text-white hover:bg-pink-900 focus:outline-none"
-          >
-            Add to cart
-          </Button>
-        ) : (
-          <Button
-            onClick={() => removefromCart(product.id)}
-            className="flex items-center justify-center   flex-grow rounded-md  bg-pink-950 px-1 py-2.5 text-center text-sm font-medium text-white hover:bg-pink-900 focus:outline-none"
-          >
-            Remove from cart
-          </Button>
-        )}
+        <div className="flex-shrink-0">
+          <StarRating keys={product.id} />
+        </div>
+        <div className="mt-auto pt-2">
+          {!cartData.find((data) => data.id === product.id) ? (
+            <Button
+              onClick={() => setCart(product)}
+              className="w-full rounded-md bg-pink-950 px-4 py-2.5 text-sm font-medium text-white hover:bg-pink-900 focus:outline-none focus:ring-2 focus:ring-pink-950 focus:ring-offset-2 transition-colors"
+            >
+              Add to Cart
+            </Button>
+          ) : (
+            <Button
+              onClick={() => removefromCart(product.id)}
+              className="w-full rounded-md bg-gray-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 transition-colors"
+            >
+              Remove from Cart
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

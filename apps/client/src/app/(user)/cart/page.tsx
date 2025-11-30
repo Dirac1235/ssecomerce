@@ -37,129 +37,124 @@ function Cart() {
 
   // }
   return (
-    <div className="container h-full ">
-      <h1 className="text-5xl m-5 p-4 border-b border-b-slate-500">Cart</h1>
-      <div className="grid gap-5  xl:grid-cols-2 lg:grid-cols-2md:px-20  ">
-        <div>
-          {cartData.length > 0 ? (
-            <div> you have {cartData.length} items in your wish list</div>
-          ) : (
-            <div className="text-lg p-4 m-5">
-              You have no items in your Cart
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8 pb-4 border-b border-gray-300">
+        Shopping Cart
+      </h1>
+      
+      {cartData.length === 0 ? (
+        <div className="text-center py-12 lg:py-16">
+          <p className="text-lg sm:text-xl text-gray-600 mb-4">
+            Your cart is empty
+          </p>
+          <Link href="/shop">
+            <Button className="bg-pink-950 hover:bg-pink-900 text-white px-6 py-2">
+              Continue Shopping
+            </Button>
+          </Link>
+        </div>
+      ) : (
+        <div className="grid gap-6 lg:grid-cols-3">
+          {/* Cart Items */}
+          <div className="lg:col-span-2 space-y-4">
+            <div className="text-sm text-gray-600 mb-4">
+              You have {cartData.length} {cartData.length === 1 ? 'item' : 'items'} in your cart
             </div>
-          )}
-          {cartData.map((product) => (
-            <div
-              key={product.id}
-              className="flex  flex-col justify-between items-center m-5 bg-inherit shadow-md p-2 border-b border-gray-200   md:flex-row md:max-w-xl  sm:flex-row sm:max-w-xl  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-            >
-              <div className="flex flex-row ">
+            {cartData.map((product) => (
+              <div
+                key={product.id}
+                className="flex flex-col sm:flex-row gap-4 bg-white rounded-lg shadow-md p-4 sm:p-6 border border-gray-200"
+              >
                 <Image
-                  width="1000"
-                  height="1000"
-                  className="object-cover w-full  max-w-32 rounded-t-lg max-h-32 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg sm:h-auto sm:w-48 sm:rounded-none sm:rounded-s-lg "
+                  width={200}
+                  height={200}
+                  className="object-cover w-full sm:w-32 h-32 rounded-lg flex-shrink-0"
                   src={`/${product.image}`}
-                  alt={product.image}
+                  alt={product.name}
                 />
-                <div className="flex flex-col justify-center p-4 leading-normal">
-                  <h5 className="mb-1 text-2xl font-bold tracking-tight text-slate-700 dark:text-white">
-                    {product.name}
-                  </h5>
-                  <p className="mb-3 font-normal text-gray-400 dark:text-gray-400">
-                    {product.description}
-                  </p>
+                <div className="flex-1 flex flex-col sm:flex-row justify-between gap-4">
+                  <div className="flex-1">
+                    <h5 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2">
+                      {product.name}
+                    </h5>
+                    <p className="text-sm text-gray-600 line-clamp-2 mb-4">
+                      {product.description}
+                    </p>
+                    <p className="text-lg font-semibold text-pink-950">
+                      ${product.price.toFixed(2)}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                    <div className="flex items-center gap-3 border border-gray-300 rounded-lg px-3 py-2">
+                      <button
+                        onClick={() => minusAmount(product.id)}
+                        className="text-gray-600 hover:text-gray-900 text-lg font-semibold w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100 transition-colors"
+                        aria-label="Decrease quantity"
+                      >
+                        -
+                      </button>
+                      <p className="text-base font-semibold w-8 text-center">
+                        {product.quantity}
+                      </p>
+                      <button
+                        onClick={() => addAmount(product.id)}
+                        className="text-gray-600 hover:text-gray-900 text-lg font-semibold w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100 transition-colors"
+                        aria-label="Increase quantity"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <button
+                      onClick={() => removefromCart(product.id)}
+                      className="text-red-600 hover:text-red-700 hover:bg-red-50 p-2 rounded-md transition-colors"
+                      aria-label="Remove item"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
+            ))}
+          </div>
 
-              <div className=" ml-2 mr-10 flex flex-row justify-between items-center">
-                <button
-                  name="-"
-                  className="mr-3 text-gray-400 text-md"
-                  // onClick={(e) => handleOperation(e, product)}
-                  onClick={() => minusAmount(product.id)}
-                >
-                  -
-                </button>
-                <p className="text-lg  border px-5 py-2 rounded-lg font-semibold">
-                  {product.quantity}
-                </p>
-                <button
-                  name="+"
-                  className="ml-3 text-gray-400 text-md"
-                  // onClick={(e) => handleOperation(e, product)}
-                  onClick={() => addAmount(product.id)}
-                >
-                  +
-                </button>
+          {/* Order Summary */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-lg shadow-md border border-gray-200 sticky top-24">
+              <div className="p-4 sm:p-6">
+                <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6 pb-4 border-b border-gray-300">
+                  Order Summary
+                </h2>
+                <div className="space-y-4 mb-6">
+                  {cartData.map((data) => (
+                    <div key={data.id} className="flex justify-between text-sm">
+                      <span className="text-gray-600">{data.name} x{data.quantity}</span>
+                      <span className="font-semibold text-gray-900">
+                        ${(data.quantity * data.price).toFixed(2)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <div className="pt-4 border-t border-gray-300 mb-6">
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg font-semibold text-gray-900">Total</span>
+                    <span className="text-2xl font-bold text-pink-950">
+                      ${total.toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+                <Link href="./checkout" className="block">
+                  <Button className="w-full bg-pink-950 hover:bg-pink-900 text-white py-6 text-base font-semibold">
+                    Proceed To Checkout
+                  </Button>
+                </Link>
               </div>
-              <p className=" font-sans font-semibold text-lg  text-gray-700 dark:text-gray-400">
-                ${product.price}
-              </p>
-              <button
-                className="mx-5 text-xl"
-                onClick={(e) => removefromCart(product.id)}
-              >
-                X
-              </button>
             </div>
-          ))}
+          </div>
         </div>
-
-        <div className="container h-screen">
-          <p className="text-3xl ml-3 border-b-2 border-b-gray-400 rounded-t-md p-3 xl:mt-3 bg-blue-100">
-            Order Summary
-          </p>
-          <Table>
-            <TableCaption>
-              <Link href="./checkout">
-                <Button className="w-full bg-pink-950  h-full py-5">
-                  Proceed To Checkout
-                </Button>
-              </Link>
-            </TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px] text-slate-800">data</TableHead>
-                <TableHead className="text-center text-slate-800">
-                  Amount
-                </TableHead>
-                <TableHead className="text-center text-slate-800">
-                  Price
-                </TableHead>
-                <TableHead className="text-right text-slate-800">
-                  Sub Total
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody className="p-40">
-              {cartData.map((data) => (
-                <TableRow key={data.id}>
-                  <TableCell className="font-medium text-md">
-                    {data.name}
-                  </TableCell>
-                  <TableCell className="text-center font-semibold  text-slate-500">
-                    {data.amount}
-                  </TableCell>
-                  <TableCell className="text-center font-semibold  text-slate-500">
-                    {data.price.toPrecision(4)}
-                  </TableCell>
-                  <TableCell className="text-right font-semibold text-slate-500">
-                    {data.quantity * data.price}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TableCell colSpan={3}>Total</TableCell>
-                <TableCell className="text-right">
-                  ${total.toPrecision(4)}
-                </TableCell>
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -9,15 +9,21 @@ function ShopList({ products }) {
     !filterByCategory.includes(item.categoryId)
   );
   return (
-    <ul className="grid grid-cols-4 ml-24 align-middle gap-7 w-5/6  mb-3">
-      {filteredData.map((product) => (
-        <li
-          key={product.id}
-          className=" flex flex-col w-fit ml-2 shadow-sm justify-center rounded-md "
-        >
-          <ProductCard product={product} width={"w-64"} />
+    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+      {filteredData.length > 0 ? (
+        filteredData.map((product) => (
+          <li
+            key={product.id}
+            className="flex justify-center"
+          >
+            <ProductCard product={product} width={"w-full max-w-sm"} />
+          </li>
+        ))
+      ) : (
+        <li className="col-span-full text-center py-12">
+          <p className="text-gray-500 text-lg">No products found matching your filters.</p>
         </li>
-      ))}
+      )}
     </ul>
   );
 }

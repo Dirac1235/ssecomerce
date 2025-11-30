@@ -33,111 +33,130 @@ function CheckOutForm({ user }) {
     clearCart()
   }
   return (
-    <div className="mt-10 px-4 pt-8 lg:mt-0">
-      <p className="text-3xl font-medium">Payment Details</p>
-      <p className="text-black py-3">
-        Complete your order by providing your payment details.
-      </p>
-      <div className=" ">
-        <label htmlFor="email" className="mt-4 mb-2 block text-sm font-medium">
-          Email
-        </label>
-        <div className="flex flex-row border-b-2 border-b-gray-200 items-center">
-          <Image width="20" height="20" src="/icons/mail.png" />
-          <input
-            type="text"
-            id="email"
-            name="email"
-            className="w-full pl-3 py-3 bg-inherit text-sm outline-none focus:z-1 focus:z-10 focus:border-b-2 focus:border-b-blue-500 hover:border-b-blue-500"
-            placeholder="example@gmail.com"
-            value={user.email}
-            disabled
-          />
-        </div>
-        <label htmlFor="fullName" className="mt-4 mb-2 block text-sm font-medium">
-          Full Name
-        </label>
-        <div className="flex flex-row items-center border-b-2 border-gray-200 ">
-          <Image
-            className="h-7 focus:border-b-blue-200"
-            width="24"
-            height="5"
-            src="/icons/person.png"
-          />
-          <input
-            type="text"
-            id="fullName"
-            name="fullName"
-            value={user.firstName + " " + user.lastName}
-            className="w-full px-4 py-3 pl-3 text-sm bg-inherit  outline-none focus:z-10 focus:border-b-2 focus:border-b-blue-500 hover:border-b-blue-500"
-            placeholder="Full name here"
-            disabled={true}
-          />
+    <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 lg:p-8">
+      <div className="mb-6">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">Payment Details</h2>
+        <p className="text-gray-600">
+          Complete your order by providing your payment details.
+        </p>
+      </div>
+
+      <div className="space-y-6">
+        {/* Email */}
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            Email
+          </label>
+          <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 bg-gray-50">
+            <Image width={20} height={20} src="/icons/mail.png" alt="Email" className="mr-3" />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="flex-1 bg-transparent text-sm outline-none text-gray-700"
+              placeholder="example@gmail.com"
+              value={user.email}
+              disabled
+            />
+          </div>
         </div>
 
-        <label
-          htmlFor="billing-address"
-          className="mt-4 mb-2 block text-sm font-medium"
-        >
-          Billing Address
-        </label>
-        <div className="flex flex-col sm:flex-row">
-          <div className="flex flex-row items-center sm:w-7/12  border-b border-b-gray-200">
+        {/* Full Name */}
+        <div>
+          <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+            Full Name
+          </label>
+          <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 bg-gray-50">
             <Image
-              className="h-6 focus:border-b-blue-200 "
-              width="24"
-              height="51"
-              src="/icons/address.png"
+              width={24}
+              height={24}
+              src="/icons/person.png"
+              alt="Person"
+              className="mr-3"
             />
             <input
               type="text"
-              id="billing-address"
-              name="billing-address"
-              className="w-full  border-b border-b-gray-200 bg-inherit px-4 py-3 pl-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500"
-              placeholder="Street Address"
+              id="fullName"
+              name="fullName"
+              value={user.firstName + " " + user.lastName}
+              className="flex-1 bg-transparent text-sm outline-none text-gray-700"
+              placeholder="Full name here"
+              disabled={true}
             />
           </div>
-          <select
-            type="text"
-            name="billing-state"
-            className="w-full  border-b border-b-gray-200 bg-inherit px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-b-blue-500 focus:ring-blue-500"
-          >
-            <option value="State">State</option>
-          </select>
-          <input
-            type="text"
-            name="billing-zip"
-            className="flex-shrink-0 border-b border-b-gray-200 bg-inherit px-4 py-3 text-sm shadow-sm outline-none sm:w-1/6 focus:z-10 focus:border-b-blue-500 focus:ring-blue-500"
-            placeholder="ZIP"
-          />
         </div>
 
-        <div className="mt-6 border-t border-b py-2">
+        {/* Billing Address */}
+        <div>
+          <label
+            htmlFor="billing-address"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Billing Address
+          </label>
+          <div className="space-y-3">
+            <div className="flex items-center border border-gray-300 rounded-md px-3 py-2 focus-within:ring-2 focus-within:ring-pink-950 focus-within:border-pink-950">
+              <Image
+                width={24}
+                height={24}
+                src="/icons/address.png"
+                alt="Address"
+                className="mr-3"
+              />
+              <input
+                type="text"
+                id="billing-address"
+                name="billing-address"
+                className="flex-1 text-sm outline-none text-gray-700"
+                placeholder="Street Address"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <select
+                name="billing-state"
+                className="border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-pink-950 focus:border-pink-950"
+              >
+                <option value="">State</option>
+              </select>
+              <input
+                type="text"
+                name="billing-zip"
+                className="border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-pink-950 focus:border-pink-950"
+                placeholder="ZIP Code"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Order Summary */}
+        <div className="border-t border-gray-200 pt-6 space-y-3">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-medium text-gray-900">Subtotal</p>
+            <p className="text-sm font-medium text-gray-600">Subtotal</p>
             <p className="font-semibold text-gray-900">
-              ${total.toPrecision(4)}
+              ${total.toFixed(2)}
             </p>
           </div>
           <div className="flex items-center justify-between">
-            <p className="text-sm font-medium text-gray-900">Shipping</p>
+            <p className="text-sm font-medium text-gray-600">Shipping</p>
             <p className="font-semibold text-gray-900">$0.00</p>
           </div>
+          <div className="border-t border-gray-200 pt-3 flex items-center justify-between">
+            <p className="text-base font-semibold text-gray-900">Total</p>
+            <p className="text-2xl font-bold text-pink-950">
+              ${total.toFixed(2)}
+            </p>
+          </div>
         </div>
-        <div className="mt-6 flex items-center justify-between">
-          <p className="text-sm font-medium text-gray-900">Total</p>
-          <p className="text-2xl font-semibold text-gray-900">
-            ${total.toPrecision(4)}
-          </p>
-        </div>
+
+        {/* Place Order Button */}
+        <button
+          className="w-full rounded-md bg-pink-950 hover:bg-pink-900 px-6 py-3 font-semibold text-white transition-colors focus:outline-none focus:ring-2 focus:ring-pink-950 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          onClick={() => handleClick()}
+          disabled={isMutating}
+        >
+          {isMutating ? "Processing..." : "Place Order"}
+        </button>
       </div>
-      <button
-        className="mt-4 mb-8 w-full rounded-md bg-pink-950 px-6 py-3 font-medium text-white"
-        onClick={() => handleClick()}
-        disabled={isMutating}
-      >
-        Place Order
-      </button>
     </div>
   );
 }
