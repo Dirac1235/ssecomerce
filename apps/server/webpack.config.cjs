@@ -24,7 +24,7 @@ function OnFirstBuildDonePlugin() {
 }
 
 const config = {
-  entry: "./src/main.js",
+  entry: "./src/main.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
     clean: true,
@@ -36,16 +36,17 @@ const config = {
     }),
   ],
   resolve: {
+    extensions: [".ts", ".js"],
     alias: {
-      "@lib/common": path.resolve(__dirname, "../../libs/common/src"),
-      "@/prisma/client": path.resolve(__dirname, "../../../../prisma/client"),
+      "@repo/common": path.resolve(__dirname, "../../libs/common/src"),
     },
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/i,
-        loader: "babel-loader",
+        test: /\.ts$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
       },
     ],
   },

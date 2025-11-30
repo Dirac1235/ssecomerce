@@ -70,8 +70,7 @@
   * {
     @apply border-border;
   }
-  /* body {
+  body {
     @apply bg-background text-foreground;
-    background-color: rgb(218, 215, 215);
-  } */
+  }
 }

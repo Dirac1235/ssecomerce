@@ -193,9 +193,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-
-      "value": "C:\\Users\\Admin\\Documents\\code\\bootcamp\\scriptSqaud-e-commerce\\prisma\\client",
-
+      "value": "/Users/macbook/Documents/code/nextjs/ssecomerce/prisma/client",
       "fromEnvVar": null
     },
     "config": {
@@ -204,7 +202,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
@@ -212,8 +210,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "..",
   "clientVersion": "5.14.0",
@@ -222,7 +219,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
